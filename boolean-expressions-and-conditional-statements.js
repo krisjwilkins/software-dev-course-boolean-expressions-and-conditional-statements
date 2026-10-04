@@ -28,19 +28,41 @@ const readline = require('readline-sync');
 
 const hasTorch = true;
 const hasMap = false;
+const hasWater = true;
+const hasBearSpray = true;
+const hasBlockedPath = true;
+const hasCompass = true;
 
 console.log("You see two paths: one leads to the mountains, the other to the village.");
 const choice = readline.question("Do you go to the 'mountains' or the 'village'?");
 
 if (choice === "mountains" && hasTorch) {
   console.log("You safely navigate through the dark mountains.");
+  if (hasWater && hasBearSpray) {
+  console.log("You have enough water for your journey and bear spray as an added layer of protection.");
+} else if (!hasWater && hasBearSpray) {
+  console.log("You have bear spray as an added layer of protection, but you don't have enough water.");
+} else if (hasWater) {
+  console.log("You have enough water for your journey, but you do not have bear spray, so be very careful.");
+} else {
+  console.log("You don't have water or bear spray. The mountains are too dangerous. You should have stayed home.");
+}
 } else if (choice === "mountains" && !hasTorch) {
   console.log("It's too dark to proceed. You decide to turn back.");
 } else if (choice === "village" || hasMap) {
   console.log("You find your way to the village.");
+  if (hasBlockedPath && hasCompass) {
+    console.log("The main road into the village is blocked by a fallen tree, but you use your compass to find an alternate route that leads you safely inside.");
+  } else if (hasBlockedPath && !hasCompass) {
+    console.log("The main road into the village is blocked by a fallen tree, and you don't have a compass to find an alternate route.");
+  } else if (!hasBlockedPath) {
+    console.log("The road is clear, so you easily make your way into the village.");
+  }
 } else {
   console.log("You get lost and wander aimlessly.");
 }
+
+
 
 /* 
 
